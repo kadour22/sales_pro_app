@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sales Report</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 30px;
+        font-size: 14px;
+        color: #333;
+      }
+      @page {
+        size: A4;
+        margin: 40px;
+        @top-center {
+          content: element(header);
+        }
+      }
+
+      #header {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        color: #2c3e50;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      h1,
+      h2 {
+        color: #2c3e50;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        margin-bottom: 30px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      th {
+        background-color: #f8f8f8;
+      }
+      .summary {
+        margin-bottom: 30px;
+      }
+      .section-title {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">Sales<span style="color: #3498db">Pro</span></div>
+    <h1>Sales Report</h1>
+
+    <div class="summary">
+      <p><strong>Total Revenue:</strong> ${{ total_revenue }}</p>
+
+      {% if top_product %}
+      <p><strong>Top Product:</strong> {{ top_product.total }}</p>
+      {% else %}
+      <p><strong>Top Product:</strong> N/A</p>
+      {% endif %}
+    </div>
+
+    <h2 class="section-title">Revenue by Region</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Region</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in revenue_by_region %}
+        <tr>
+          <td>{{ item.region }}</td>
+          <td>${{ item.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">No data available</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Revenue by Month</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in revenue_by_month %}
+        <tr>
+          <td>{{ item.month|date:"F Y" }}</td>
+          <td>${{ item.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">No data available</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Revenue by Week</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in revenue_by_week %}
+        <tr>
+          <td>{{ item.week|date:"Y-\WW" }}</td>
+          <td>${{ item.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">No data available</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Revenue by Day</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in revenue_by_day %}
+        <tr>
+          <td>{{ item.day|date:"Y-m-d" }}</td>
+          <td>${{ item.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">No data available</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Revenue by Year</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Total Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in revenue_by_year %}
+        <tr>
+          <td>{{ item.year|date:"Y" }}</td>
+          <td>${{ item.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">No data available</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
