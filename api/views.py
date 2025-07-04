@@ -133,8 +133,8 @@ class SalesStatsView(APIView):
             .annotate(total=Sum('revenue'))
 
             return Response({
-                'total_revenue': total_revenue,
-                'top_product': top_product,
+                'total_revenue'    : total_revenue,
+                'top_product'      : top_product,
                 'revenue_by_region': revenue_by_region,
                 'revenue_by_month': revenue_by_month,
                 'revenue_by_week':revenue_by_week,
@@ -201,16 +201,16 @@ class SalesReportPDFView(APIView):
         revenue_by_year   = records.annotate(year=TruncYear('date')).values('year').annotate(total=Sum('revenue'))
 
         html_string = render_to_string("sales_report.html", {
-            'total_revenue': total_revenue,
-            'top_product': top_product,
+            'total_revenue'    : total_revenue,
+            'top_product'      : top_product,
             'revenue_by_region': revenue_by_region,
-            'revenue_by_month': revenue_by_month,
-            'revenue_by_week': revenue_by_week,
-            'revenue_by_day': revenue_by_day,
-            'revenue_by_year': revenue_by_year,
+            'revenue_by_month' : revenue_by_month,
+            'revenue_by_week'  : revenue_by_week,
+            'revenue_by_day'   : revenue_by_day,
+            'revenue_by_year'  : revenue_by_year,
         })
 
-        html = HTML(string=html_string)
+        html     = HTML(string=html_string)
         pdf_file = html.write_pdf()
 
         response = HttpResponse(pdf_file, content_type="application/pdf")

@@ -181,12 +181,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
-
-
-EMAIL_BACKEND = 'anymail.backends.brevo.EmailBackend'
-EMAIL_HOST = 'smtp-relay.brevo.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'zaroui.abedlkader777@gmail.com'
-EMAIL_HOST_PASSWORD = "bSsPAOX5pH3EnzIa"
-BREVO_API_KEY='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'
