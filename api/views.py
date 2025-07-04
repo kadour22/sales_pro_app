@@ -22,20 +22,13 @@ from django.conf import settings
 from django.db.models.functions import TruncWeek , TruncDay ,TruncYear ,TruncMonth
 from django.http import HttpResponse
 
+
 class RegistrationView(APIView):
     permission_classes = [permissions.AllowAny]
     def post(self, request):
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            try:
-                send_mail(
-                subject="account Creation",
-                message="test",
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[user.email])
-            except :
-                print("error")
             return Response({"message": "User created successfully", "user_id": user.id}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
