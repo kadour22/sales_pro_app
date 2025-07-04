@@ -22,6 +22,7 @@ from django.conf import settings
 from django.db.models.functions import TruncWeek , TruncDay ,TruncYear ,TruncMonth
 from django.http import HttpResponse
 
+
 class RegistrationView(APIView):
     permission_classes = [permissions.AllowAny]
     def post(self, request):
