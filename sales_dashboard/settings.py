@@ -28,7 +28,9 @@ SECRET_KEY = 'django-insecure-sn%gie=w7%oy=3p-gpemm$w_c(wgkj+a%f))43)us&@8ymd2rm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "sales-pro-app.onrender.com",
+]
 
 
 # Application definition
@@ -58,10 +60,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    
 ]
 
 ROOT_URLCONF = 'sales_dashboard.urls'
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'https://salesproa.netlify.app/',
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://sales-pro-app.onrender.com",
+]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
