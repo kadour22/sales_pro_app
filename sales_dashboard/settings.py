@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'django_celery_beat',
-    "anymail",
+    'anymail',
+    'rest_framework_simplejwt',
     'corsheaders' 
 ]
 

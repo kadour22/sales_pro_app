@@ -23,14 +23,9 @@ from django.db.models.functions import TruncWeek , TruncDay ,TruncYear ,TruncMon
 from django.http import HttpResponse
 
 
-class RegistrationView(APIView):
+class RegistrationView(generics.CreateAPIView):
     permission_classes = [permissions.AllowAny]
-    def post(self, request):
-        serializer = RegistrationSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response({"message": "User created successfully", "user_id": user.id}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer_class = RegistrationSerializer
 
 class UploadCSVFile(APIView) :
     permission_classes = [permissions.IsAuthenticated]
@@ -55,11 +50,11 @@ class UploadCSVFile(APIView) :
         for row in reader:
             try:
                 SalesRecord.objects.create(
-                    sales_file=sales_file,
-                    date    = row['Date'],
-                    product = row['Product'],
-                    revenue = row['Revenue'],
-                    region  = row['Region']
+                    sales_file = sales_file,
+                    date       = row['Date'],
+                    product    = row['Product'],
+                    revenue    = row['Revenue'],
+                    region     = row['Region']
                 )
             except Exception as e:
                 print('خطأ في السطر:', row, e)
@@ -142,7 +137,6 @@ class SalesStatsView(APIView):
 
 class UserProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-
     def get(self, request):
         profile = Profile.objects.filter(user=request.user)
         serializer = ProfileSerializer(profile)
