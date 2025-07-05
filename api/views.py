@@ -138,7 +138,7 @@ class SalesStatsView(APIView):
 class UserProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
-        profile = Profile.objects.filter(user=request.user)
+        profile = Profile.objects.get(user=request.user)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
 
