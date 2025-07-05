@@ -137,8 +137,12 @@ class SalesStatsView(APIView):
 
 class UserProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request):
-        profile = Profile.objects.get(user=request.user)
+        # Use select_related to fetch related user in one query (if Profile has FK to User)
+        profile = Profile.objects.select_related('user').filter(user=request.user).first()
+        if not profile:
+            return Response({'detail': 'Profile not found.'}, status=status.HTTP_404_NOT_FOUND)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data)
 
